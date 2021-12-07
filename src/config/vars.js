@@ -9,6 +9,7 @@ require('dotenv-safe').config({
 module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
+  httpsport: process.env.HTTPSPORT,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpirationInterval: process.env.JWT_EXPIRATION_MINUTES,
   mongo: {

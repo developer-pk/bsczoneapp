@@ -1,7 +1,7 @@
 {
-  "name": "group-communities-server",
+  "name": "bsc-zonde-server",
   "version": "1.2.2",
-  "description": "RESTful APIs of Group and Communities",
+  "description": "RESTful APIs of BSC ZONE",
   "author": "Pankaj Kumar<developer.pk@hotmail.com>",
   "main": "src/index.js",
   "private": false,
