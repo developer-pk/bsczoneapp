@@ -1,5 +1,4 @@
 var fs = require('fs');
-var http = require('http');
 var https = require('https');
 var privateKey  = fs.readFileSync('/etc/letsencrypt/live/bsczone.webtracktechnology.com/privkey.pem', 'utf8');
 var certificate = fs.readFileSync('/etc/letsencrypt/live/bsczone.webtracktechnology.com/fullchain.pem', 'utf8');
@@ -16,11 +15,9 @@ const mongoose = require('./config/mongoose');
 mongoose.connect();
 
 // listen to requests
-var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(port, () => logger.info(`server started on port ${port} (${env})`));
-httpsServer.listen(httpsport, () => logger.info(`server started on https port ${httpsport} (${env})`));
+httpsServer.listen(port, () => logger.info(`server started on https port ${port} (${env})`));
 // app.listen(port, () => logger.info(`server started on port ${port} (${env})`));
 
 /**
