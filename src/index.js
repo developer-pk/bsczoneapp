@@ -1,3 +1,4 @@
+var fs = require('fs');
 var http = require('http');
 var https = require('https');
 var privateKey  = fs.readFileSync('/etc/letsencrypt/live/bsczone.webtracktechnology.com/privkey.pem', 'utf8');
