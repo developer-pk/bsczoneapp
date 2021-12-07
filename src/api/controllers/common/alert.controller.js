@@ -9,12 +9,12 @@ const Alert = require('../../models/common/currencyAlert.model');
  exports.create = async (req, res, next) => {
   
     try {
-      const ads = new Ads(Object.assign({ createdBy: req.user._id },req.body));
-      const savedAds = await ads.save();
+      const alert = new Alert(req.body);
+      const savedAlert = await alert.save();
       res.status(httpStatus.CREATED);
-      res.json(savedAds.transform());
+      res.json(savedAlert.transform());
     } catch (error) {
-      next(Ads.checkDuplicateHobby(error));
+      next(error);
     }
   };
 
@@ -24,20 +24,31 @@ const Alert = require('../../models/common/currencyAlert.model');
  */
 exports.list = async (req, res, next) => {
   try {
-    const ads = await Ads.list(req.query);
-    const transformedads = ads.map((ads) => ads.transform());
-    res.json(transformedads);
+    const alert = await Alert.list(req.query);
+    const transformedAlert = alert.map((alert) => alert.transform());
+    res.json(transformedAlert);
   } catch (error) {
     next(error);
   } 
 };
+
+exports.view =async (req, res, next) =>{
+  // console.log(req.params.countryId);
+    try {
+     const alert = await Alert.findById(req.params.alertId);
+     const transformedAlert = alert.transform();
+     res.json(transformedAlert);
+   } catch (error) {
+     next(error);
+   }
+ };
 /**
  * Delete Hobby
  * @public
  */
  exports.remove = async (req, res, next) => {
   try {
-   const ads = await Ads.findByIdAndDelete(req.params.adsId);
+   const alert = await Alert.findByIdAndDelete(req.params.alertId);
    res.status(httpStatus.NO_CONTENT).end();
   } catch (error) {
     next(error);

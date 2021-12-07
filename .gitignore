@@ -39,6 +39,10 @@ build/Release
 node_modules
 jspm_packages
 
+src/index.js
+src/config/vars.js
+
+
 # Optional npm cache directory
 .npm
 

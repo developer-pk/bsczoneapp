@@ -7,9 +7,6 @@ const APIError = require('../../errors/api-error');
 const statuses = ['active', 'inactive'];
 
 const currencyAlertSchema = new mongoose.Schema({
-    _id: {
-      type: Number
-    },
     ip: {
       type: String
     },
@@ -30,6 +27,46 @@ const currencyAlertSchema = new mongoose.Schema({
   }, {
     timestamps: true,
   });
+
+/**
+ * Methods
+ */
+ currencyAlertSchema.method({
+  transform() {
+    const transformed = {};
+    const fields = ['id', 'ip', 'currencySymbol', 'highPrice', 'lowPrice', 'status'];
+
+    fields.forEach((field) => {
+      transformed[field] = this[field];
+    });
+
+    return transformed;
+  },
+
+
+  
+});
+
+/**
+ * Statics
+ */
+ currencyAlertSchema.statics = {
+
+  list({
+    page = 1, perPage = 30, ip, currencySymbol, highPrice, status,
+  }) {
+    const options = omitBy({ ip, currencySymbol, highPrice, status }, isNil);
+
+    return this.find(options)
+      .sort({ createdAt: -1 })
+      .skip(perPage * (page - 1))
+      .limit(perPage)
+      .exec();
+  },
+
+};
+
+
   const alert = mongoose.model('Alert', currencyAlertSchema);
   
   module.exports = alert;

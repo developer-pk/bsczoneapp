@@ -4,8 +4,8 @@ const controller = require('../../../controllers/common/alert.controller');
 const { authorize, ADMIN, LOGGED_USER } = require('../../../middlewares/auth');
 const {
   listAlert,
-  
-} = require('../../../validations/common/country.validation');
+  createAlert,
+} = require('../../../validations/common/alert.validation');
 
 const router = express.Router();
 router
@@ -29,7 +29,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
    */
-  .get(validate(listCountries), controller.list)
+  .get(authorize(ADMIN), validate(listAlert), controller.list)
    /**
    * @api {post} v1/alert Creat Alert
    * @apiDescription Create a new Alert
@@ -58,7 +58,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    * @apiError (Forbidden 403)     Forbidden        Only admins can create the data
    */
-    .post(authorize(ADMIN), validate(createAds), controller.create);
+    .post(validate(createAlert), controller.create);
 
   router
   .route('/:alertId')
@@ -78,7 +78,7 @@ router
    * @apiError (Forbidden 403)    Forbidden     Only user with same id or admins can delete the data
    * @apiError (Not Found 404)    NotFound      User does not exist
    */
-   .get(controller.view);
+   .get(authorize(ADMIN), controller.view);
   
 
    
