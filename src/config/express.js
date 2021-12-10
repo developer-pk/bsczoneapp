@@ -22,7 +22,7 @@ app.use(morgan(logs));
 
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // gzip compression
 app.use(compress());
@@ -45,6 +45,7 @@ passport.use('google', strategies.google);
 
 // mount api v1 routes
 app.use('/v1', routes);
+app.use('/uploads', express.static('./uploads'));
 
 // if error is not an instanceOf APIError, convert it.
 app.use(error.converter);

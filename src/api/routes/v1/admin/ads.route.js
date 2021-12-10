@@ -6,6 +6,21 @@ const {
   listAds,
   createAds,
 } = require('../../../validations/admin/ads.validation');
+const multer  = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'uploads/');
+  },
+
+  filename: function(req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + file.originalname);
+  }
+});
+
+var upload = multer({ storage: storage })
+
+// const upload = multer({ dest: 'uploads/' });
 
 const router = express.Router();
 router
@@ -53,7 +68,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    * @apiError (Forbidden 403)     Forbidden        Only admins can create the data
    */
-  .post(authorize(ADMIN), validate(createAds), controller.create);
+  .post(authorize(ADMIN), upload.single('ads'), validate(createAds), controller.create);
 
   router
   .route('/:adsId')

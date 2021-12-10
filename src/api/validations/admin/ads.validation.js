@@ -18,7 +18,7 @@ module.exports = {
   createAds: {
     body: {
       title: Joi.string().required(),
-      ads: Joi.string().required(),
+      // ads: Joi.string().required(),
       status: Joi.string().required(),
     },
   },

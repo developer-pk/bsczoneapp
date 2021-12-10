@@ -7,9 +7,10 @@ const Ads = require('../../models/admin/ads.model');
  * @public
  */
  exports.create = async (req, res, next) => {
+   console.log("file-data", req.file);
   
     try {
-      const ads = new Ads(Object.assign({ createdBy: req.user._id },req.body));
+      const ads = new Ads(Object.assign({ createdBy: req.user._id,ads:req.file.filename },req.body));
       const savedAds = await ads.save();
       res.status(httpStatus.CREATED);
       res.json(savedAds.transform());
