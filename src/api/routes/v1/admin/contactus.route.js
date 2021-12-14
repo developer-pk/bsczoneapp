@@ -27,7 +27,7 @@ router
    * @apiGroup Message
    * @apiPermission admin
    */
-  .post(authorize(ADMIN), validate(createContactUs), controller.create);
+  .post(validate(createContactUs), controller.create);
   router
   .route('/:messageId')
   
