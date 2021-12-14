@@ -18,6 +18,10 @@ const statuses = ['read', 'unread'];
       trim: true,
       lowercase: true,
     },
+    phoneNumber:{
+      type: Number,
+      required: true,
+    },
     subject:{
       type: String,
       required: true,
@@ -46,7 +50,7 @@ const statuses = ['read', 'unread'];
  contactUsSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name', 'email', 'subject', 'message','status', 'createdAt'];
+    const fields = ['id', 'name', 'email','phoneNumber', 'subject', 'message','status', 'createdAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -69,9 +73,9 @@ const statuses = ['read', 'unread'];
    * @returns {Promise<User[]>}
    */
    list({
-    page = 1, perPage = 30, name, email, subject,message, status,
+    page = 1, perPage = 30, name, email, phoneNumber,subject,message, status,
   }) {
-    const options = omitBy({ name, email, subject,message, status }, isNil);
+    const options = omitBy({ name, email, phoneNumber, subject, message, status }, isNil);
 console.log(options);
     return this.find(options)
       .sort({ createdAt: -1 })
