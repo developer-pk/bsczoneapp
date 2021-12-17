@@ -31,15 +31,17 @@ function generateTokenResponse(user, accessToken) {
 exports.register = async (req, res, next) => {
   try {
     const userData = omit(req.body, 'role');
-    const user = await new User(userData).save();
+    const user = await new User(Object.assign({ otp: generateOTP() },userData)).save();
     const userTransformed = user.transform();
     const token = generateTokenResponse(user, user.token());
+    emailProvider.sendOTPonEmail(user);
     res.status(httpStatus.CREATED);
     return res.json({ token, user: userTransformed });
   } catch (error) {
     return next(User.checkDuplicateEmail(error));
   }
 };
+
 
 /**
  * Returns jwt token if valid username and password is provided
@@ -144,3 +146,16 @@ exports.resetPassword = async (req, res, next) => {
     return next(error);
   }
 };
+
+
+function generateOTP() {
+          
+  // Declare a digits variable 
+  // which stores all digits
+  var digits = '0123456789';
+  let OTP = '';
+  for (let i = 0; i < 6; i++ ) {
+      OTP += digits[Math.floor(Math.random() * 10)];
+  }
+  return OTP;
+}

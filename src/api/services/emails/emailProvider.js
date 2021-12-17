@@ -75,3 +75,31 @@ exports.sendPasswordChangeEmail = async (user) => {
     })
     .catch(() => console.log('error sending change password email'));
 };
+
+
+
+exports.sendOTPonEmail = async (user) => {
+  const email = new Email({
+    views: { root: __dirname },
+    message: {
+      from: 'support@your-app.com',
+    },
+    // uncomment below to send emails in development/test env:
+    send: true,
+    transport: transporter,
+  });
+
+  email
+    .send({
+      template: 'sendOtp',
+      message: {
+        to: user.email,
+      },
+      locals: {
+        productName: 'Test App',
+        name: user.firstname+' '+user.lastname,
+        otp:user.otp,
+      },
+    })
+    .catch(() => console.log('error sending change password email'));
+};

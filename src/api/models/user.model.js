@@ -69,6 +69,16 @@ const userSchema = new mongoose.Schema({
     enum: steps,
     default: '1',
   },
+  otp: {
+    type: String,
+    trim: true,
+    default:null,
+  },
+  verifiedAt: { 
+    type: Date,
+    default: null,
+  },
+  
 }, {
   timestamps: true,
 });
@@ -100,7 +110,7 @@ userSchema.pre('save', async function save(next) {
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'firstname', 'lastname', 'email', 'picture', 'role', 'createdAt','steps'];
+    const fields = ['id', 'firstname', 'lastname', 'email', 'picture', 'role', 'verifiedAt','createdAt','steps'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
