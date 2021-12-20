@@ -6,10 +6,8 @@ const APIError = require('../../errors/api-error');
 
 const statuses = ['active', 'inactive'];
 
-const currencyAlertSchema = new mongoose.Schema({
-    ip: {
-      type: String
-    },
+const currencyFavoriteSchema = new mongoose.Schema({
+   
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -20,12 +18,6 @@ const currencyAlertSchema = new mongoose.Schema({
     },
     currencySymbol: {
       type: String,
-    },
-    highPrice: {
-      type: Number,
-    },
-    lowPrice: {
-      type: Number,
     },
     status: {
       type: String,
@@ -39,10 +31,10 @@ const currencyAlertSchema = new mongoose.Schema({
 /**
  * Methods
  */
- currencyAlertSchema.method({
+ currencyFavoriteSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'ip','userId','currencytoken', 'currencySymbol', 'highPrice', 'lowPrice', 'status'];
+    const fields = ['id', 'ip','userId','currencytoken', 'currencySymbol', 'status'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -58,12 +50,12 @@ const currencyAlertSchema = new mongoose.Schema({
 /**
  * Statics
  */
- currencyAlertSchema.statics = {
+ currencyFavoriteSchema.statics = {
 
   list({
-    page = 1, perPage = 30, ip,userId,currencytoken, currencySymbol, highPrice, status,
+    page = 1, perPage = 30, ip,userId,currencytoken, currencySymbol, status,
   }) {
-    const options = omitBy({ ip,userId,currencytoken, currencySymbol, highPrice, status }, isNil);
+    const options = omitBy({ ip,userId,currencytoken, currencySymbol, status }, isNil);
 
     return this.find(options)
       .sort({ createdAt: -1 })
@@ -75,7 +67,7 @@ const currencyAlertSchema = new mongoose.Schema({
 };
 
 
-  const alert = mongoose.model('Alert', currencyAlertSchema);
+  const favorite = mongoose.model('Favorite', currencyFavoriteSchema);
   
-  module.exports = alert;
+  module.exports = favorite;
   

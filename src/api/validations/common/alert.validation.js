@@ -21,8 +21,22 @@ module.exports = {
     body: {
       ip: Joi.string().required(),
       currencySymbol: Joi.string().required(),
+      currencytoken: Joi.string().required(),
       highPrice: Joi.number().required(),
       lowPrice: Joi.number().required(),
+      status: Joi.string().required(),
+    },
+  },
+  getMySavedAlert: {
+    params: {
+      tokenId: Joi.string().required(),
+      },
+  },
+
+  addTokenFavorite: {
+    body: {
+      currencySymbol: Joi.string().required(),
+      currencytoken: Joi.string().required(),
       status: Joi.string().required(),
     },
   },

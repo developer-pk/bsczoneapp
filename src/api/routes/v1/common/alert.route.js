@@ -5,6 +5,9 @@ const { authorize, ADMIN, LOGGED_USER } = require('../../../middlewares/auth');
 const {
   listAlert,
   createAlert,
+  getMySavedAlert,
+  addTokenFavorite,
+
 } = require('../../../validations/common/alert.validation');
 
 const router = express.Router();
@@ -58,10 +61,10 @@ router
    * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    * @apiError (Forbidden 403)     Forbidden        Only admins can create the data
    */
-    .post(validate(createAlert), controller.create);
+    .post(authorize(LOGGED_USER),validate(createAlert), controller.create);
 
   router
-  .route('/:alertId')
+  .route('/single/:alertId')
   /**
    * @api {get} v1/alert/:id single Alerts
    * @apiDescription get single Alerts
@@ -79,8 +82,64 @@ router
    * @apiError (Not Found 404)    NotFound      User does not exist
    */
    .get(authorize(ADMIN), controller.view);
-  
 
+   router
+  .route('/get-my-all-alerts')
+  /**
+   * @api {get} v1/alert/get-my-all-alerts single Alerts
+   * @apiDescription get My All single Alerts
+   * @apiVersion 1.0.0
+   * @apiName getMyAlert
+   * @apiGroup Alerts
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization   Admin's access token
+   *
+   * @apiSuccess (No Content 204)  Successfully Get
+   *
+   * @apiError (Unauthorized 401) Unauthorized  Only authenticated users can delete the data
+   * @apiError (Forbidden 403)    Forbidden     Only user with same id or admins can delete the data
+   * @apiError (Not Found 404)    NotFound      User does not exist
+   */
+  .get(authorize(LOGGED_USER), controller.getMyAlert);
+  router
+  .route('/get-saved-alert/:tokenId')
+  /**
+   * @api {get} v1/alert/get-my-all-alerts single Alerts
+   * @apiDescription get My All single Alerts
+   * @apiVersion 1.0.0
+   * @apiName getMyAlert
+   * @apiGroup Alerts
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization   Admin's access token
+   *
+   * @apiSuccess (No Content 204)  Successfully Get
+   *
+   * @apiError (Unauthorized 401) Unauthorized  Only authenticated users can delete the data
+   * @apiError (Forbidden 403)    Forbidden     Only user with same id or admins can delete the data
+   * @apiError (Not Found 404)    NotFound      User does not exist
+   */
+  .get(authorize(LOGGED_USER), controller.getSavedToken); 
+  router
+  .route('/add-favorite')
+  /**
+   * @api {get} v1/alert//add-favorite single Alerts
+   * @apiDescription get My All single Alerts
+   * @apiVersion 1.0.0
+   * @apiName add-favorite
+   * @apiGroup Alerts
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization   Admin's access token
+   *
+   * @apiSuccess (No Content 204)  Successfully Get
+   *
+   * @apiError (Unauthorized 401) Unauthorized  Only authenticated users can delete the data
+   * @apiError (Forbidden 403)    Forbidden     Only user with same id or admins can delete the data
+   * @apiError (Not Found 404)    NotFound      User does not exist
+   */
+  .post(authorize(LOGGED_USER),validate(addTokenFavorite), controller.addTokenFavorite); 
    
 
 module.exports = router;
