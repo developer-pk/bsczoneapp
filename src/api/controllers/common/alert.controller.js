@@ -117,3 +117,51 @@ var my_favorite = true;
     next(error);
   }
 };
+
+
+exports.unFavoriteToken = async (req, res, next) => {
+  
+  try {
+
+    const favorite = await Favorite.findOneAndDelete({ userId: req.user._id,currencytoken:req.body.currencytoken }, function (err, token) {
+      if (err){
+        res.status(httpStatus.SERVER_ERROR);
+        res.json({message:err});
+      }
+  });
+
+  if(favorite){
+    res.status(httpStatus.OK);
+    res.json({message:"Token Removed from Favorite", favorite:false});
+  }else{
+    res.status(httpStatus.OK);
+    res.json({message:"Token Already Removed from Favorite",favorite:false});
+  }
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+exports.removeAlertUser = async (req, res, next) => {
+  
+  try {
+
+    const alert = await Alert.findOneAndDelete({ userId: req.user._id,currencytoken:req.body.currencytoken }, function (err, token) {
+      if (err){
+        res.status(httpStatus.SERVER_ERROR);
+        res.json({message:err});
+      }
+  });
+
+  if(alert){
+    res.status(httpStatus.OK);
+    res.json({message:"Token Removed from Alert",alert:false});
+  }else{
+    res.status(httpStatus.OK);
+    res.json({message:"Token Already Removed from Alert",alert:false});
+  }
+  } catch (error) {
+    next(error);
+  }
+};

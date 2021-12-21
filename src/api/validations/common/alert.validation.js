@@ -40,5 +40,15 @@ module.exports = {
       status: Joi.string().required(),
     },
   },
+  unFavoriteToken: {
+    body: {
+      currencytoken: Joi.string().required(),
+    },
+  },
+  removeAlertUser: {
+    body: {
+      currencytoken: Joi.string().required(),
+    },
+  },
  
 };
