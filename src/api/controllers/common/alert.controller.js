@@ -165,3 +165,27 @@ exports.removeAlertUser = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.myFavoriteToken = async (req, res, next) => {
+  
+  try {
+
+    const favorite = await Favorite.find({ userId: req.user._id}, function (err, token) {
+      if (err){
+        res.status(httpStatus.SERVER_ERROR);
+        res.json({message:err});
+      }
+  });
+
+  if(favorite){
+    res.status(httpStatus.OK);
+    res.json({message:"Favorite Tokens", data:favorite});
+  }else{
+    res.status(httpStatus.OK);
+    res.json({message:"Favorite Tokens not found"});
+  }
+  } catch (error) {
+    next(error);
+  }
+};

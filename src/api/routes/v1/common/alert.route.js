@@ -181,4 +181,26 @@ router
    */
   .post(authorize(LOGGED_USER),validate(removeAlertUser), controller.removeAlertUser); 
 
+  router
+  .route('/my-favorite-tokens')
+  /**
+   * @api {get} v1/alert//add-favorite single Alerts
+   * @apiDescription get My All single Alerts
+   * @apiVersion 1.0.0
+   * @apiName add-favorite
+   * @apiGroup Alerts
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization   Admin's access token
+   *
+   * @apiSuccess (No Content 204)  Successfully Get
+   *
+   * @apiError (Unauthorized 401) Unauthorized  Only authenticated users can delete the data
+   * @apiError (Forbidden 403)    Forbidden     Only user with same id or admins can delete the data
+   * @apiError (Not Found 404)    NotFound      User does not exist
+   */
+  .post(authorize(LOGGED_USER), controller.myFavoriteToken); 
+
+  
+
 module.exports = router;
