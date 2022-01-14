@@ -3,7 +3,7 @@ const Joi = require('joi');
 module.exports = {
 
   // GET /v1/users
-  listTokens: {
+  listAds: {
     query: {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
@@ -16,7 +16,7 @@ module.exports = {
   // POST /v1/users
   createToken: {
     body: {
-      image: Joi.string().required(),
+      // image: Joi.string().required(),
       contractAddress: Joi.string().required(),
     },
   },

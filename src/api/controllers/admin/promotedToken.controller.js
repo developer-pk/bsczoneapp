@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const https = require('https');
+const axios = require('axios');
 const { omit } = require('lodash');
 const Promoted = require('../../models/admin/promotedToken.model');
 
@@ -8,10 +8,13 @@ const Promoted = require('../../models/admin/promotedToken.model');
  * @public
  */
  exports.create = async (req, res, next) => {
-   console.log("file-data", req.file);
+   console.log("file-data", req.file.filename);
   
-    try {
+     try {
       const promotedToken = new Promoted(Object.assign({ createdBy: req.user._id,image:req.file.filename },req.body));
+     
+      console.log("sdfadffadfadfadasd",promotedToken);
+
       const savedAds = await promotedToken.save();
       res.status(httpStatus.CREATED);
       res.status(httpStatus.CREATED);
