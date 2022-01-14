@@ -6,6 +6,7 @@ const {
   listTokens,
   createToken,
 } = require('../../../validations/admin/promotedToken.validation');
+var path = require('path')
 const multer  = require('multer');
 
 const storage = multer.diskStorage({
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
   },
 
   filename: function(req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() + file.originalname);
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
 
