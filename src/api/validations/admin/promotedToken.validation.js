@@ -8,7 +8,6 @@ module.exports = {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
       contractAddress: Joi.string(),
-      image: Joi.string(),
       status: Joi.string(),
     },
   },

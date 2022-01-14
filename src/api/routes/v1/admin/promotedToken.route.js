@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 // const upload = multer({ dest: 'uploads/' });
 
@@ -45,7 +45,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
    */
-  .get(validate(listTokens), controller.list)
+  .get(controller.list)
   /**
    * @api {post} v1/ads Creat Ads
    * @apiDescription Create a new Ads
