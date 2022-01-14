@@ -11,9 +11,6 @@ const Promoted = require('../../models/admin/promotedToken.model');
    console.log("file-data", req.file);
   
     try {
-      
-     var data =  fetch('https://api.cryptorank.io/v1/currencies?api_key=021cd8b8d2554fa4fead52e3a4acb368c33f7247676e143a109340a653d4&symbols=Tcake&optionalFields=images,links');
-     console.log('data----',data);
       const promotedToken = new Promoted(Object.assign({ createdBy: req.user._id,image:req.file.filename },req.body));
       const savedAds = await promotedToken.save();
       res.status(httpStatus.CREATED);
@@ -31,7 +28,7 @@ const Promoted = require('../../models/admin/promotedToken.model');
 exports.list = async (req, res, next) => {
   try {
     const promotedToken = await Promoted.list(req.query);
-    const transformedToken = ads.map((promotedToken) => promotedToken.transform());
+    const transformedToken = promotedToken.map((promotedToken) => promotedToken.transform());
     res.status(httpStatus.OK);
     res.json(transformedToken);
   } catch (error) {
