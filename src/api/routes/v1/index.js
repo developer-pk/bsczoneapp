@@ -5,6 +5,7 @@ const adsRoutes = require('./admin/ads.route');
 const alertRoutes = require('./common/alert.route');
 const contactUsRoutes = require('./admin/contactus.route');
 const veryfyOtpRoutes = require('./common/veryfyOtp.route');
+const promotedTokenRoutes = require('./admin/promotedToken.route');
 
 const router = express.Router();
 
@@ -24,6 +25,9 @@ router.use('/ads', adsRoutes);
 router.use('/alert', alertRoutes);
 router.use('/message', contactUsRoutes);
 router.use('/otp', veryfyOtpRoutes);
+router.use('/otp', veryfyOtpRoutes);
+router.use('/promoted-token', promotedTokenRoutes);
+
 
 
 module.exports = router;
