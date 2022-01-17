@@ -75,7 +75,7 @@ if(gl_data.data.data.ethereum.address[0].smartContract==null){
   var api_data = gl_data.data.data.ethereum.address;
 }
 
-      const promotedToken = new Promoted(Object.assign({ createdBy: req.user._id,image:"req.file.filename",apiData: api_data},req.body));
+      const promotedToken = new Promoted(Object.assign({ createdBy: req.user._id,image:req.file.filename,apiData: api_data},req.body));
      
       console.log("sdfadffadfadfadasd",promotedToken);
 
