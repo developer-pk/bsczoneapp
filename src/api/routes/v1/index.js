@@ -6,6 +6,7 @@ const alertRoutes = require('./common/alert.route');
 const contactUsRoutes = require('./admin/contactus.route');
 const veryfyOtpRoutes = require('./common/veryfyOtp.route');
 const promotedTokenRoutes = require('./admin/promotedToken.route');
+const tokenImageRoutes = require('./admin/tokenImage.route');
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.use('/message', contactUsRoutes);
 router.use('/otp', veryfyOtpRoutes);
 router.use('/otp', veryfyOtpRoutes);
 router.use('/promoted-token', promotedTokenRoutes);
+router.use('/token-image', tokenImageRoutes);
 
 
 
