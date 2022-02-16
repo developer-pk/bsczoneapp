@@ -8,6 +8,7 @@ const {
 } = require('../../../validations/admin/tokenImage.validation');
 var path = require('path')
 const multer  = require('multer');
+const { encodeBase64 } = require('bcryptjs');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -15,7 +16,7 @@ const storage = multer.diskStorage({
   },
 
   filename: function(req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+      cb(null, encodeBase64(req.sumbol.toLowerCase())+'_'+req.sumbol.toLowerCase()+ path.extname(file.originalname));
   }
 });
 
