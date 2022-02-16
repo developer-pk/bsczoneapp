@@ -12,6 +12,11 @@ const statuses = ['active', 'inactive'];
       type: String,
       required: true,
     },
+    
+    tokenName: {
+      type: String,
+      unique: true
+    },
     contractAddress: {
       type: String,
       unique: true
@@ -47,7 +52,7 @@ const statuses = ['active', 'inactive'];
  tokenImageSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'image', 'contractAddress', 'symbol','status','createdAt'];
+    const fields = ['id', 'image','tokenName', 'contractAddress', 'symbol','status','createdAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -92,9 +97,9 @@ const statuses = ['active', 'inactive'];
    * @returns {Promise<User[]>}
    */
    list({
-    page = 1, perPage = 30, image, contractAddress, symbol, status,
+    page = 1, perPage = 30, image,tokenName, contractAddress, symbol, status,
   }) {
-    const options = omitBy({ image, contractAddress, symbol, status }, isNil);
+    const options = omitBy({ image,tokenName, contractAddress, symbol, status }, isNil);
 console.log(options);
     return this.find(options)
       .sort({ createdAt: -1 })

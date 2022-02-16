@@ -18,6 +18,8 @@ module.exports = {
       // image: Joi.string().required(),
       contractAddress: Joi.string().required(),
       symbol: Joi.string().required(),
+      tokenName: Joi.string().required(),
+      
     },
   },
  
