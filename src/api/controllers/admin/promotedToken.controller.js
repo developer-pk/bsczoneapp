@@ -12,70 +12,70 @@ const Promoted = require('../../models/admin/promotedToken.model');
   
      try {
 
-      const endpoint = "https://graphql.bitquery.io/";
+//       const endpoint = "https://graphql.bitquery.io/";
 
-      var gl_data = await axios.post(endpoint, {
-        query: `{
-          ethereum(network: bsc) {
-            address(address: {is: "`+req.body.contractAddress+`"}) {
-              annotation
-              address
-              smartContract {
-                contractType
-                currency {
-                  symbol
-                  name
-                  decimals
-                  tokenType
-                }
-              }
-            }
-          }
-        }`,
-        mode: 'cors',
-      }, {
-          headers: {
-            "Content-Type": "application/json",
-          "X-API-KEY": "BQYAOLGxCUZFuXBEylRKEPm2tYHdi2Wu",
-          'Access-Control-Allow-Origin': '*',
-          }
-        });
+//       var gl_data = await axios.post(endpoint, {
+//         query: `{
+//           ethereum(network: bsc) {
+//             address(address: {is: "`+req.body.contractAddress+`"}) {
+//               annotation
+//               address
+//               smartContract {
+//                 contractType
+//                 currency {
+//                   symbol
+//                   name
+//                   decimals
+//                   tokenType
+//                 }
+//               }
+//             }
+//           }
+//         }`,
+//         mode: 'cors',
+//       }, {
+//           headers: {
+//             "Content-Type": "application/json",
+//           "X-API-KEY": "BQYAOLGxCUZFuXBEylRKEPm2tYHdi2Wu",
+//           'Access-Control-Allow-Origin': '*',
+//           }
+//         });
 
       
-// console.log('gl-data-----   ',JSON.stringify(gl_data.data.data.ethereum.address));
-if(gl_data.data.data.ethereum.address[0].smartContract==null){
-  var gl_data2 = await axios.post(endpoint, {
-    query: `{
-      ethereum(network: ethereum) {
-        address(address: {is: "`+req.body.contractAddress+`"}) {
-          annotation
-          address
-          smartContract {
-            contractType
-            currency {
-              symbol
-              name
-              decimals
-              tokenType
-            }
-          }
-        }
-      }
-    }`,
-    mode: 'cors',
-  }, {
-      headers: {
-        "Content-Type": "application/json",
-      "X-API-KEY": "BQYAOLGxCUZFuXBEylRKEPm2tYHdi2Wu",
-      'Access-Control-Allow-Origin': '*',
-      }
-    });
-    var api_data = gl_data2.data.data.ethereum.address;
-}else{
-  var api_data = gl_data.data.data.ethereum.address;
-}
+// // console.log('gl-data-----   ',JSON.stringify(gl_data.data.data.ethereum.address));
+// if(!isset(gl_data.data.data.ethereum.address[0].smartContract)|| gl_data.data.data.ethereum.address[0].smartContract==null){
+//   var gl_data2 = await axios.post(endpoint, {
+//     query: `{
+//       ethereum(network: ethereum) {
+//         address(address: {is: "`+req.body.contractAddress+`"}) {
+//           annotation
+//           address
+//           smartContract {
+//             contractType
+//             currency {
+//               symbol
+//               name
+//               decimals
+//               tokenType
+//             }
+//           }
+//         }
+//       }
+//     }`,
+//     mode: 'cors',
+//   }, {
+//       headers: {
+//         "Content-Type": "application/json",
+//       "X-API-KEY": "BQYAOLGxCUZFuXBEylRKEPm2tYHdi2Wu",
+//       'Access-Control-Allow-Origin': '*',
+//       }
+//     });
+//     var api_data = gl_data2.data.data.ethereum.address;
+// }else{
+//   var api_data = gl_data.data.data.ethereum.address;
+// }
 
-      const promotedToken = new Promoted(Object.assign({ createdBy: req.user._id,image:req.file.filename,apiData: api_data},req.body));
+      const promotedToken = new Promoted(Object.assign({ createdBy: req.user._id},req.body));
      
       console.log("sdfadffadfadfadasd",promotedToken);
 

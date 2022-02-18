@@ -69,7 +69,7 @@ router
    * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    * @apiError (Forbidden 403)     Forbidden        Only admins can create the data
    */
-  .post(authorize(ADMIN), upload.single('image'), validate(createToken), controller.create);
+  .post(authorize(ADMIN), validate(createToken), controller.create);
 
   router
   .route('/:tokenId')
