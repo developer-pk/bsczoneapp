@@ -8,7 +8,7 @@ const { json } = require('body-parser');
 const statuses = ['active', 'inactive'];
 
  const promotedTokenSchema = new mongoose.Schema({
-    image:{
+  tokenName:{
       type: String,
       required: true,
     },
@@ -17,7 +17,7 @@ const statuses = ['active', 'inactive'];
       unique: true
     },
     apiData: {
-      type: Object
+      type: String
     },
     status: {
         type: String,
@@ -46,7 +46,7 @@ const statuses = ['active', 'inactive'];
  promotedTokenSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'image', 'contractAddress', 'apiData','status','createdAt'];
+    const fields = ['id', 'image', 'contractAddress', 'tokenName','apiData','status','createdAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -91,9 +91,9 @@ const statuses = ['active', 'inactive'];
    * @returns {Promise<User[]>}
    */
    list({
-    page = 1, perPage = 30, image, contractAddress, apiData, status,
+    page = 1, perPage = 30, image, contractAddress,tokenName, apiData, status,
   }) {
-    const options = omitBy({ image, contractAddress, apiData, status }, isNil);
+    const options = omitBy({ image, contractAddress,tokenName, apiData, status }, isNil);
 console.log(options);
     return this.find(options)
       .sort({ createdAt: -1 })
